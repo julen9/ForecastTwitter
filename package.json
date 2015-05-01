@@ -1,0 +1,16 @@
+{
+  "name": "streamTwitter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Julen Hernandez",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.12.2",
+    "socket.io": "^1.3.5",
+    "twit": "^1.1.20"
+  }
+}

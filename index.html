@@ -1,0 +1,123 @@
+<script src="/socket.io/socket.io.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+
+<div id="chart" style="width:100%; height:400px;"></div>
+
+  <script>
+
+        var socket = io.connect('http://localhost:8080');
+        var chart;
+
+       // socket.on('00', function(r00){
+         //           	var series = chart.series[0];
+			//        	series.series[0].addPoint(r00);
+			  //      });
+
+    chart = new Highcharts.Chart({
+        chart: {
+            renderTo: 'chart', 
+            defaultSeriesType: 'bar',
+            events: {
+                load: function() {
+                    // when i receive a valor from the socket, then I put it in the graph
+                    socket.on('00', function(r00) {
+                        
+                        series.setData([r00,this,this,this,this,this,this,this,this]);
+                    });
+
+                    socket.on('10', function(r10){
+			        	//var series = chart.series[0];
+                        series.setData([this,r10,this,this,this,this,this,this,this]);
+			        });
+
+			        socket.on('20', function(r20) {
+                        //var series = chart.series[0];
+                        series.setData([this,this,r20,this,this,this,this,this,this]);
+                    });
+
+                    socket.on('01', function(r01){
+			        	//var series = chart.series[0];
+                        series.setData([this,this,this,r01,this,this,this,this,this]);
+			        });
+
+			        socket.on('02', function(r02) {
+                        //var series = chart.series[0];
+                        series.setData([this,this,this,this,r02,this,this,this,this]);
+                    });
+
+                    socket.on('11', function(r11){
+			        	//var series = chart.series[0];
+                        series.setData([this,this,this,this,this,r11,this,this,this]);
+			        });
+
+			        socket.on('22', function(r22) {
+                        //var series = chart.series[0];
+                        series.setData([this,this,this,this,this,this,r22,this,this]);
+                    });
+
+                    socket.on('12', function(r12){
+			        	//var series = chart.series[0];
+                        series.setData([this,this,this,this,this,this,this,r12,this]);
+			        });
+
+			        socket.on('21', function(r21){
+			        	//var series = chart.series[0];
+                        series.setData([this,this,this,this,this,this,this,this,r21]);
+			        });
+                }
+            }
+        },
+
+        title: {
+            text: 'Forecast Chelsea Vs. PSG'
+        },
+         xAxis: {
+            categories: ['0-0', '1-0', '2-0', '0-1', '0-2', '1-1', '2-2', '1-2', '2-1']
+        },
+
+        yAxis: {
+            title: {
+                text: 'Number of people that think this result'
+            }
+        },
+         series: [{
+            name: 'Number of people',
+            data: [0,0,0,0,0,0,0,0,0]
+        }]
+    });    
+
+
+		var series = chart.series[0];
+
+		socket.on('initChart', function(initResults){
+            series.setData([initResults[0],initResults[1],initResults[2],initResults[3],initResults[4],initResults[5],initResults[6],initResults[7],initResults[8]]);
+		});
+
+
+        socket.on('stream', function(tweet){
+        $('#tweetd').append(tweet+'<br>');
+        });
+  </script>
+  <div id="tweetd"></div>
+</div>
+<!--socket.on('00', function(r00){
+                    	var series = chart.series[0];
+			        	series.series[0].data[0].update(r00);
+			        });
+
+			        socket.on('10', function(r10){
+			        	var series = chart.series[0];
+			        	series.series[0].data[1].update(r10);
+			        });
+
+			        socket.on('20', function(r20){
+			        	var series = chart.series[0];
+			        	series.series[0].data[2].update(r20);-->
+
+
+
+
+
+
+ 
